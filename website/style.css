@@ -1,0 +1,489 @@
+/* ===========================================
+   Bitgesell Snapshot
+   Minimal • Functional • Modern
+=========================================== */
+
+/* ==========================
+   RESET
+========================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  background: #ffffff;
+  color: #24292f;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.75;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================
+   TYPOGRAPHY
+========================== */
+
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #111827;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: .6rem;
+}
+
+p {
+  margin: 0 0 1.25rem;
+  color: #4b5563;
+}
+
+a {
+  color: #0969da;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+
+a:hover {
+  color: #0550ae;
+}
+
+/* ==========================
+   LAYOUT
+========================== */
+
+.container {
+  width: min(900px, 92%);
+  margin: 0 auto;
+}
+
+.container-sm {
+  width: min(760px, 92%);
+  margin: 0 auto;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+header {
+  background: #fff;
+  border-bottom: 1px solid #d8dee4;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 64px;
+}
+
+.logo {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: #57606a;
+  font-size: .95rem;
+}
+
+nav a:hover {
+  color: #0969da;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero {
+  padding: 5rem 0;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  max-width: 680px;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.btn-primary,
+.btn-secondary {
+
+  display: inline-block;
+
+  padding: .9rem 1.5rem;
+
+  border-radius: 8px;
+
+  font-size: .95rem;
+
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    transform .15s ease;
+}
+
+.btn-primary {
+
+  background: #4527AB;
+
+  color: white;
+}
+
+.btn-primary:hover {
+
+  background: #0550ae;
+
+  color: white;
+
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+
+  border: 1px solid #d0d7de;
+
+  color: #24292f;
+
+  background: #fff;
+}
+
+.btn-secondary:hover {
+
+  background: #f6f8fa;
+
+  color: #24292f;
+}
+
+/* ==========================
+   INSTALL COMMAND
+========================== */
+
+.install-command {
+
+  margin-top: 2rem;
+
+  background: #f6f8fa;
+
+  border: 1px solid #d8dee4;
+
+  border-radius: 8px;
+
+  padding: 1rem;
+
+  overflow-x: auto;
+}
+
+.install-command code {
+
+  color: #1a7f37;
+
+  font-size: .95rem;
+}
+
+/* ==========================
+   DEMO
+========================== */
+
+.hero-demo {
+
+  margin-top: 3rem;
+}
+
+.hero-demo video {
+
+  display: block;
+
+  width: 100%;
+
+  border-radius: 8px;
+
+  border: 1px solid #d8dee4;
+}
+
+/* ==========================
+   SECTIONS
+========================== */
+
+section {
+  padding: 4rem 0;
+}
+
+
+/* ==========================
+   FEATURES
+========================== */
+
+.feature-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 1.5rem;
+}
+
+.feature-grid article {
+
+  background: white;
+
+  border: 1px solid #d8dee4;
+
+  border-radius: 8px;
+
+  padding: 1.5rem;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
+}
+
+.feature-grid article:hover {
+
+  transform: translateY(-2px);
+
+  border-color: #c0c8d2;
+}
+
+.feature-grid p {
+
+  margin-bottom: 0;
+}
+
+/* ==========================
+   STATUS CARD
+========================== */
+
+.status-card {
+
+  background: white;
+
+  border: 1px solid #d8dee4;
+
+  border-radius: 8px;
+
+  padding: 2rem;
+}
+
+.status-card hr {
+
+  border: 0;
+
+  border-top: 1px solid #eceff3;
+
+  margin: 1.4rem 0;
+}
+
+.status-card code {
+
+  display: block;
+
+  overflow-wrap: anywhere;
+
+  color: #1a7f37;
+
+  font-size: .95rem;
+}
+
+/* ==========================
+   CODE
+========================== */
+
+pre {
+
+  background: #f6f8fa;
+
+  border: 1px solid #d8dee4;
+
+  border-radius: 8px;
+
+  padding: 1rem;
+
+  overflow-x: auto;
+}
+
+code {
+
+  font-family:
+
+    "JetBrains Mono",
+
+    "Fira Code",
+
+    Consolas,
+
+    monospace;
+
+  font-size: .92rem;
+}
+
+/* ==========================
+   LISTS
+========================== */
+
+ul,
+ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: .6rem;
+}
+
+/* ==========================
+   TABLES
+========================== */
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+th,
+td {
+
+  padding: .8rem;
+
+  border-bottom: 1px solid #d8dee4;
+
+  text-align: left;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer {
+
+  border-top: 1px solid #d8dee4;
+
+  padding: 3rem 0;
+
+  text-align: center;
+
+  color: #6b7280;
+
+  font-size: .95rem;
+}
+
+/* ==========================
+   IMAGES
+========================== */
+
+img {
+
+  max-width: 100%;
+
+  display: block;
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 768px) {
+
+  body {
+    font-size: 17px;
+  }
+
+  nav {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    height: auto;
+
+    padding: 1rem 0;
+
+    gap: 1rem;
+  }
+
+  nav ul {
+
+    flex-wrap: wrap;
+
+    gap: 1rem;
+  }
+
+  .hero {
+
+    padding: 3rem 0;
+  }
+
+  h1 {
+
+    font-size: 2.5rem;
+  }
+
+  section {
+
+    padding: 3rem 0;
+  }
+
+}

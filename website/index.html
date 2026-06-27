@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bitgesell Snapshot</title>
+
+  <meta name="description" content="Bootstrap a Bitgesell node in minutes using verified blockchain snapshots.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ==========================
+         HEADER
+    =========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          Bitgesell Snapshot
+        </div>
+
+        <ul>
+          <li><a href="#download">Download</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#snapshot">Snapshot</a></li>
+          <li><a href="#github">GitHub</a></li>
+          <li><a href="#github">Donate</a></li>
+
+        </ul>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <main>
+
+    <!-- ==========================
+             HERO
+        =========================== -->
+
+    <section class="hero">
+
+      <div class="container">
+
+        <h1>
+          Bootstrap A Bitgesell Node In Minutes
+        </h1>
+
+        <p>
+          Download a verified blockchain snapshot and dramatically reduce
+          the time required for initial Block Download (IDB) during sync.
+        </p>
+
+        <div class="buttons">
+
+          <a href="#" class="btn-primary">
+            Download Snapshot
+          </a>
+
+          <a href="#" class="btn-secondary">
+            GitHub
+          </a>
+
+        </div>
+
+        <div class="install-command">
+
+          <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
+
+        </div>
+
+        <!-- Demo GIF / Video -->
+
+        <div class="hero-demo">
+
+          <video autoplay muted loop playsinline poster="assets/install-demo.gif">
+
+            <source src="assets/install-demo.webm" type="video/webm">
+
+            <source src="assets/install-demo.mp4" type="video/mp4">
+
+            <img src="assets/install-demo.gif" alt="Bitgesell Snapshot installer demonstration">
+
+          </video>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==========================
+             FEATURES
+        =========================== -->
+
+    <section class="surface" id="features">
+
+      <div class="container">
+
+        <h2>Why Bitgesell Snapshot?</h2>
+
+        <div class="feature-grid">
+
+          <article>
+
+            <h3>⚡ Fast Bootstrap</h3>
+
+            <p>
+              Start from a recent blockchain snapshot instead of
+              downloading every block from genesis.
+            </p>
+
+          </article>
+
+          <article>
+
+            <h3>🔒 Integrity Verified</h3>
+
+            <p>
+              Every release includes SHA-256 checksums for
+              independent verification before extraction.
+            </p>
+
+          </article>
+
+          <article>
+
+            <h3>📦 One Command</h3>
+
+            <p>
+              Download, verify and install using a single
+              installation script.
+            </p>
+
+          </article>
+
+          <article>
+
+            <h3>🛠 Open Source</h3>
+
+            <p>
+              MIT licensed with all bash scripts publicly available on
+              GitHub.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==========================
+             SNAPSHOT INFO
+        =========================== -->
+
+    <section class="surface" id="snapshot">
+
+      <div class="container">
+
+        <h2>Snapshot Information</h2>
+
+        <div class="status-card">
+
+          <p>
+
+            <strong>Latest Block Height</strong><br>
+
+            <span id="height">Loading...</span>
+
+          </p>
+
+          <hr>
+
+          <p>
+
+            <strong>Snapshot Date</strong><br>
+
+            <span id="created">Loading...</span>
+
+          </p>
+
+          <hr>
+
+          <p>
+
+            <strong>Archive Size</strong><br>
+
+            <span id="size">Loading...</span>
+
+          </p>
+
+          <hr>
+
+          <p>
+
+            <strong>SHA-256</strong>
+
+          </p>
+
+          <code id="sha256">
+Loading...
+                    </code>
+
+          <hr>
+
+          <p>
+
+            <strong>Installer Version</strong><br>
+
+            <span id="version">
+              v0.1.0
+            </span>
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==========================
+             INSTALLATION
+        =========================== -->
+
+    <section class="surface" id="download">
+
+      <div class="container">
+
+        <h2>Getting Started</h2>
+
+        <h3>Option 1 — One-line installer (Recommended)</h3>
+
+        <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
+
+        <h3>Option 2 — Clone repository</h3>
+
+        <pre><code>git clone https://github.com/YOUR_USERNAME/bitgesell-snapshot
+
+cd bitgesell-snapshot
+
+chmod +x cmd/install.sh
+
+./cmd/install.sh</code></pre>
+
+      </div>
+
+    </section>
+
+    <!-- ==========================
+             HOW IT WORKS
+        =========================== -->
+
+    <section>
+
+      <div class="container-sm">
+
+        <h2>How It Works</h2>
+
+        <ol>
+
+          <li>
+            Download the latest compressed blockchain snapshot.
+          </li>
+
+          <li>
+            Verify its SHA-256 checksum.
+          </li>
+
+          <li>
+            Extract the archive into <code>~/.BGL</code>.
+          </li>
+
+          <li>
+            Launch <code>BGLd</code> and synchronize only the
+            remaining blocks.
+          </li>
+
+        </ol>
+
+      </div>
+
+    </section>
+
+    <!-- ==========================
+             OPEN SOURCE
+        =========================== -->
+
+    <section class="surface" id="github">
+
+      <div class="container-sm">
+
+        <h2>Open Source</h2>
+
+        <p>
+
+          Bitgesell Snapshot is an open-source utility built to simplify
+          node deployment. The project is released under the MIT License
+          and welcomes issues, improvements and pull requests.
+
+        </p>
+
+        <p>
+
+          <a href="#">
+            View the project on GitHub →
+          </a>
+
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==========================
+         FOOTER
+    =========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      <p>
+
+        Bitgesell Snapshot • MIT License • Built for the Bitgesell Community
+
+      </p>
+
+    </div>
+
+  </footer>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>
