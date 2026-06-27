@@ -1,31 +1,27 @@
-// Initialize Clipboard.js
+document.querySelectorAll(".copy-btn").forEach(button => {
 
-const clipboard = new ClipboardJS('#copy-button')
+  button.addEventListener("click", async () => {
 
-clipboard.on('success', function (e) {
+    const code = button.parentElement.querySelector("code");
 
-  const button = e.trigger;
+    try {
 
-  const originalText = button.textContent;
+      await navigator.clipboard.writeText(code.innerText);
 
-  button.textContent = 'copied!';
+      button.classList.add("copied");
 
-  button.classList.add('copied')
+      setTimeout(() => {
 
-  setTimeout(() => {
+        button.classList.remove("copied");
 
-    button.textContent = originalText;
+      }, 1800);
 
-    button.classList.remove('copied')
+    } catch (err) {
 
-  }, 2000)
+      console.error("Clipboard error:", err);
 
-  e.clearSelection()
+    }
 
-})
+  });
 
-clipboard.on('error', function () {
-
-  alert('Copy failed. Please copy the command manually.')
-
-})
+});

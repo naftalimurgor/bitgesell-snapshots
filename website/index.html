@@ -74,28 +74,46 @@
 
         </div>
 
-        <div class="install-command">
+        <h2>Quick Start</h2>
+        <p>
+          Bootstrap a fresh Bitgesell node using the latest verified
+          blockchain snapshot.
+        </p>
+
+        <div class="code-block">
+
+          <button class="copy-btn" aria-label="Copy command">
+
+            <span class="icon-copy">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+
+                <path
+                  d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25z" />
+
+                <path
+                  d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z" />
+
+              </svg>
+
+            </span>
+
+            <span class="icon-check">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+
+                <path
+                  d="M13.78 4.22a.75.75 0 010 1.06L6.53 12.53a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 111.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
+
+              </svg>
+
+            </span>
+
+          </button>
 
           <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
 
         </div>
-
-        <!-- Demo GIF / Video -->
-
-        <div class="hero-demo">
-
-          <video autoplay muted loop playsinline poster="assets/install-demo.gif">
-
-            <source src="assets/install-demo.webm" type="video/webm">
-
-            <source src="assets/install-demo.mp4" type="video/mp4">
-
-            <img src="assets/install-demo.gif" alt="Bitgesell Snapshot installer demonstration">
-
-          </video>
-
-        </div>
-
       </div>
 
     </section>
@@ -109,6 +127,7 @@
       <div class="container">
 
         <h2>Why Bitgesell Snapshot?</h2>
+        <p>Make setting a new node easy peasy and avoid setup overhead in sync time.</p>
 
         <div class="feature-grid">
 
@@ -239,22 +258,87 @@ Loading...
     <section class="surface" id="download">
 
       <div class="container">
+        <h2>How to Download Bitgesell Snapshot</h2>
 
-        <h2>Getting Started</h2>
+        <p>
+          Choose the installation method that best suits your workflow. The
+          one-line installer is recommended for most users, while cloning the
+          repository gives you full control over the installation scripts and
+          allows you to inspect or modify them before execution.
+        </p>
 
         <h3>Option 1 — One-line installer (Recommended)</h3>
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy command">
 
-        <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
+            <span class="icon-copy">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+
+                <path
+                  d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25z" />
+
+                <path
+                  d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z" />
+
+              </svg>
+
+            </span>
+
+            <span class="icon-check">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+
+                <path
+                  d="M13.78 4.22a.75.75 0 010 1.06L6.53 12.53a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 111.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
+
+              </svg>
+
+            </span>
+
+          </button>
+          <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
+        </div>
 
         <h3>Option 2 — Clone repository</h3>
+        <div class="code-block">
 
-        <pre><code>git clone https://github.com/YOUR_USERNAME/bitgesell-snapshot
+          <button class="copy-btn" aria-label="Copy command">
+
+            <span class="icon-copy">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+
+                <path
+                  d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25z" />
+
+                <path
+                  d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z" />
+
+              </svg>
+
+            </span>
+
+            <span class="icon-check">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+
+                <path
+                  d="M13.78 4.22a.75.75 0 010 1.06L6.53 12.53a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 111.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
+
+              </svg>
+
+            </span>
+
+          </button>
+          <pre><code>git clone https://github.com/naftalimurgor/bitgesell-snapshot
 
 cd bitgesell-snapshot
 
 chmod +x cmd/install.sh
 
 ./cmd/install.sh</code></pre>
+        </div>
 
       </div>
 
