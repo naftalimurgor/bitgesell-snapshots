@@ -14,7 +14,8 @@ DATE="$(date +"%d-%m-%y")"
 ARCHIVE="snapshot-${DATE}.tar"
 COMPRESSED="${ARCHIVE}.zst"
 
-BGL_CLI="${BGL_CLI:-BGL-cli}"
+# Docker container running Bitgesell node
+BGL_CONTAINER="${BGL_CONTAINER:-bglnode}"
 
 ########################################
 # Logging
@@ -44,13 +45,20 @@ die() {
 }
 
 ########################################
-# Dependency Check
+# Helpers
 ########################################
 
 require() {
-    command -v "$1" >/dev/null 2>&1 \
-        || die "$1 is not installed."
+    command -v "$1" >/dev/null 2>&1 || die "$1 is not installed."
 }
+
+bgl() {
+    docker exec "$BGL_CONTAINER" bgl-cli "$@"
+}
+
+########################################
+# Dependency Check
+########################################
 
 check_dependencies() {
 
@@ -60,9 +68,19 @@ check_dependencies() {
     require tar
     require zstd
     require sha256sum
-    require "$BGL_CLI"
+    require docker
 
     ok "Dependencies OK."
+}
+
+check_container() {
+
+    log "Checking Bitgesell Docker container..."
+
+    docker ps --format '{{.Names}}' | grep -q "$BGL_CONTAINER" \
+        || die "Container not running: $BGL_CONTAINER"
+
+    ok "Container OK ($BGL_CONTAINER)"
 }
 
 ########################################
@@ -71,14 +89,9 @@ check_dependencies() {
 
 check_source() {
 
-    [[ -d "$SOURCE_DIR" ]] \
-        || die "Bitgesell directory not found: $SOURCE_DIR"
-
-    [[ -d "$SOURCE_DIR/blocks" ]] \
-        || die "blocks directory missing."
-
-    [[ -d "$SOURCE_DIR/chainstate" ]] \
-        || die "chainstate directory missing."
+    [[ -d "$SOURCE_DIR" ]] || die "Bitgesell directory not found: $SOURCE_DIR"
+    [[ -d "$SOURCE_DIR/blocks" ]] || die "blocks directory missing."
+    [[ -d "$SOURCE_DIR/chainstate" ]] || die "chainstate directory missing."
 
     ok "Source directory verified."
 }
@@ -92,7 +105,6 @@ prepare_workspace() {
     mkdir -p "$OUTPUT_DIR"
 
     TMP_DIR=$(mktemp -d)
-
     trap 'rm -rf "$TMP_DIR"' EXIT
 
     mkdir -p "$TMP_DIR/.BGL"
@@ -108,23 +120,15 @@ copy_blockchain() {
 
     log "Copying blockchain..."
 
-    rsync -a \
-        "$SOURCE_DIR/blocks" \
-        "$TMP_DIR/.BGL/"
-
-    rsync -a \
-        "$SOURCE_DIR/chainstate" \
-        "$TMP_DIR/.BGL/"
+    rsync -a "$SOURCE_DIR/blocks" "$TMP_DIR/.BGL/"
+    rsync -a "$SOURCE_DIR/chainstate" "$TMP_DIR/.BGL/"
 
     if [[ -d "$SOURCE_DIR/indexes" ]]; then
-        rsync -a \
-            "$SOURCE_DIR/indexes" \
-            "$TMP_DIR/.BGL/"
+        rsync -a "$SOURCE_DIR/indexes" "$TMP_DIR/.BGL/"
     fi
 
     if [[ -f "$SOURCE_DIR/peers.dat" ]]; then
-        cp "$SOURCE_DIR/peers.dat" \
-            "$TMP_DIR/.BGL/"
+        cp "$SOURCE_DIR/peers.dat" "$TMP_DIR/.BGL/"
     fi
 
     ok "Blockchain copied."
@@ -138,10 +142,7 @@ create_archive() {
 
     log "Creating archive..."
 
-    tar \
-        -cf "${OUTPUT_DIR}/${ARCHIVE}" \
-        -C "$TMP_DIR" \
-        .BGL
+    tar -cf "${OUTPUT_DIR}/${ARCHIVE}" -C "$TMP_DIR" .BGL
 
     ok "Archive created."
 }
@@ -154,9 +155,7 @@ compress_archive() {
 
     log "Compressing..."
 
-    zstd -19 \
-        --rm \
-        "${OUTPUT_DIR}/${ARCHIVE}"
+    zstd -19 --rm "${OUTPUT_DIR}/${ARCHIVE}"
 
     ok "Compression complete."
 }
@@ -171,7 +170,6 @@ generate_checksum() {
 
     (
         cd "$OUTPUT_DIR"
-
         sha256sum "$COMPRESSED" > "${COMPRESSED}.sha256"
     )
 
@@ -187,11 +185,10 @@ generate_metadata() {
     log "Generating snapshot metadata..."
 
     SIZE=$(du -h "${OUTPUT_DIR}/${COMPRESSED}" | cut -f1)
+    SHA256=$(cut -d' ' -f1 "${OUTPUT_DIR}/${COMPRESSED}.sha256")
 
-    SHA256=$(cut -d' ' -f1 \
-        "${OUTPUT_DIR}/${COMPRESSED}.sha256")
-
-    HEIGHT=$("$BGL_CLI" getblockcount)
+    HEIGHT=$(bgl getblockcount 2>/dev/null || true)
+    [[ -n "$HEIGHT" ]] || die "Failed to fetch block height from Docker node"
 
     CREATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
@@ -217,13 +214,8 @@ update_latest() {
 
     log "Updating latest snapshot..."
 
-    cp \
-        "${OUTPUT_DIR}/${COMPRESSED}" \
-        "${OUTPUT_DIR}/latest.tar.zst"
-
-    cp \
-        "${OUTPUT_DIR}/${COMPRESSED}.sha256" \
-        "${OUTPUT_DIR}/latest.sha256"
+    cp "${OUTPUT_DIR}/${COMPRESSED}" "${OUTPUT_DIR}/latest.tar.zst"
+    cp "${OUTPUT_DIR}/${COMPRESSED}.sha256" "${OUTPUT_DIR}/latest.sha256"
 
     ok "Latest snapshot updated."
 }
@@ -239,8 +231,8 @@ summary() {
 cat <<EOF
 
 ========================================
-
-Snapshot created successfully.
+Snapshot created successfully
+========================================
 
 Archive:
 ${OUTPUT_DIR}/${COMPRESSED}
@@ -248,11 +240,8 @@ ${OUTPUT_DIR}/${COMPRESSED}
 Checksum:
 ${OUTPUT_DIR}/${COMPRESSED}.sha256
 
-Latest Archive:
+Latest:
 ${OUTPUT_DIR}/latest.tar.zst
-
-Latest Checksum:
-${OUTPUT_DIR}/latest.sha256
 
 Metadata:
 ${OUTPUT_DIR}/snapshot.json
@@ -260,26 +249,27 @@ ${OUTPUT_DIR}/snapshot.json
 Size:
 ${SIZE}
 
-Ready for upload to GitHub Releases.
+Container:
+${BGL_CONTAINER}
 
 ========================================
-
 EOF
 }
 
+########################################
+# Main
 ########################################
 
 main() {
 
 cat <<EOF
-
 ========================================
-Bitgesell Snapshot Builder
+Bitgesell Snapshot Builder (Docker)
 ========================================
-
 EOF
 
     check_dependencies
+    check_container
     check_source
     prepare_workspace
     copy_blockchain
