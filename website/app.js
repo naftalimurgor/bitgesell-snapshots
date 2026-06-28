@@ -28,11 +28,11 @@ document.querySelectorAll(".copy-btn").forEach(button => {
 
 async function loadSnapshot() {
   try {
-    const res = await fetch("./snapshot.json", {
-      cache: "no-store"
-    });
+    const url = document.querySelector('meta[name="snapshot-url"]').content;
 
+    const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
+
 
     document.getElementById("height").textContent =
       data.height.toLocaleString();
