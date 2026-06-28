@@ -14,6 +14,8 @@ DATE="$(date +"%d-%m-%y")"
 ARCHIVE="snapshot-${DATE}.tar"
 COMPRESSED="${ARCHIVE}.zst"
 
+BGL_CLI="${BGL_CLI:-BGL-cli}"
+
 ########################################
 # Logging
 ########################################
@@ -58,6 +60,7 @@ check_dependencies() {
     require tar
     require zstd
     require sha256sum
+    require "$BGL_CLI"
 
     ok "Dependencies OK."
 }
@@ -121,7 +124,7 @@ copy_blockchain() {
 
     if [[ -f "$SOURCE_DIR/peers.dat" ]]; then
         cp "$SOURCE_DIR/peers.dat" \
-           "$TMP_DIR/.BGL/"
+            "$TMP_DIR/.BGL/"
     fi
 
     ok "Blockchain copied."
@@ -159,7 +162,7 @@ compress_archive() {
 }
 
 ########################################
-# SHA256
+# Generate checksum
 ########################################
 
 generate_checksum() {
@@ -176,6 +179,37 @@ generate_checksum() {
 }
 
 ########################################
+# Generate metadata
+########################################
+
+generate_metadata() {
+
+    log "Generating snapshot metadata..."
+
+    SIZE=$(du -h "${OUTPUT_DIR}/${COMPRESSED}" | cut -f1)
+
+    SHA256=$(cut -d' ' -f1 \
+        "${OUTPUT_DIR}/${COMPRESSED}.sha256")
+
+    HEIGHT=$("$BGL_CLI" getblockcount)
+
+    CREATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+    cat > "${OUTPUT_DIR}/snapshot.json" <<EOF
+{
+  "version": "latest",
+  "height": ${HEIGHT},
+  "created": "${CREATED}",
+  "size": "${SIZE}",
+  "sha256": "${SHA256}",
+  "archive": "latest.tar.zst"
+}
+EOF
+
+    ok "Snapshot metadata generated."
+}
+
+########################################
 # Latest copies
 ########################################
 
@@ -183,11 +217,13 @@ update_latest() {
 
     log "Updating latest snapshot..."
 
-    cp "${OUTPUT_DIR}/${COMPRESSED}" \
-       "${OUTPUT_DIR}/latest.tar.zst"
+    cp \
+        "${OUTPUT_DIR}/${COMPRESSED}" \
+        "${OUTPUT_DIR}/latest.tar.zst"
 
-    cp "${OUTPUT_DIR}/${COMPRESSED}.sha256" \
-       "${OUTPUT_DIR}/latest.sha256"
+    cp \
+        "${OUTPUT_DIR}/${COMPRESSED}.sha256" \
+        "${OUTPUT_DIR}/latest.sha256"
 
     ok "Latest snapshot updated."
 }
@@ -200,20 +236,29 @@ summary() {
 
     SIZE=$(du -h "${OUTPUT_DIR}/${COMPRESSED}" | cut -f1)
 
-    cat <<EOF
+cat <<EOF
 
 ========================================
 
 Snapshot created successfully.
 
-File:
-  ${OUTPUT_DIR}/${COMPRESSED}
+Archive:
+${OUTPUT_DIR}/${COMPRESSED}
 
 Checksum:
-  ${OUTPUT_DIR}/${COMPRESSED}.sha256
+${OUTPUT_DIR}/${COMPRESSED}.sha256
+
+Latest Archive:
+${OUTPUT_DIR}/latest.tar.zst
+
+Latest Checksum:
+${OUTPUT_DIR}/latest.sha256
+
+Metadata:
+${OUTPUT_DIR}/snapshot.json
 
 Size:
-  ${SIZE}
+${SIZE}
 
 Ready for upload to GitHub Releases.
 
@@ -229,7 +274,7 @@ main() {
 cat <<EOF
 
 ========================================
- Bitgesell Snapshot Builder
+Bitgesell Snapshot Builder
 ========================================
 
 EOF
@@ -241,6 +286,7 @@ EOF
     create_archive
     compress_archive
     generate_checksum
+    generate_metadata
     update_latest
     summary
 }
