@@ -1,5 +1,7 @@
 # Bitgesell Snapshot
 
+<img src="Icon.png" style="height: 60px;" />
+
 A lightweight utility for bootstrapping a Bitgesell node using verified blockchain snapshots. Download, verify, and install the latest snapshot to reduce initial synchronization time from hours or days to just minutes.
 
 ## Getting Started
