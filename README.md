@@ -7,7 +7,7 @@ A lightweight utility for bootstrapping a Bitgesell node using verified blockcha
 ### Option 1 — Download the repository
 
 ```bash
-git clone https://github.com/<your-username>/bitgesell-snapshot.git
+git clone https://github.com/naftalimurgor/bitgesell-snapshot.git
 cd bitgesell-snapshot
 
 chmod +x install.sh
