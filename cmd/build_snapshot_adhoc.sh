@@ -23,45 +23,36 @@ SOURCE_DIR="$(realpath "$1")"
 ########################################
 
 OUTPUT_DIR="$(pwd)/snapshot"
-
 mkdir -p "$OUTPUT_DIR"
-
-TMP_DIR="$(mktemp -d)"
-trap 'rm -rf "$TMP_DIR"' EXIT
 
 echo "Creating snapshot..."
 
 ########################################
-# Copy blockchain
+# Archive directly (no temp copy)
 ########################################
 
-mkdir -p "$TMP_DIR/.BGL"
-
-rsync -a \
-    --exclude="BGL.conf" \
-    "$SOURCE_DIR/" \
-    "$TMP_DIR/.BGL/"
-
-########################################
-# Archive
-########################################
+PARENT_DIR="$(dirname "$SOURCE_DIR")"
+BGL_DIR="$(basename "$SOURCE_DIR")"
 
 tar \
+    --exclude="${BGL_DIR}/BGL.conf" \
+    --exclude="${BGL_DIR}/BGLd.pid" \
+    --exclude="${BGL_DIR}/settings.json" \
+    --exclude="${BGL_DIR}/debug.log" \
+    --exclude="${BGL_DIR}/mempool.dat" \
+    --exclude="${BGL_DIR}/banlist.dat" \
+    --exclude="${BGL_DIR}/fee_estimates.dat" \
+    --exclude="${BGL_DIR}/wallets" \
+    --exclude="${BGL_DIR}/wallet.dat" \
     -cf "$OUTPUT_DIR/latest.tar" \
-    -C "$TMP_DIR" \
-    .BGL
+    -C "$PARENT_DIR" \
+    "$BGL_DIR"
 
 ########################################
 # Compress
 ########################################
 
-zstd -19 \
-    --rm \
-    "$OUTPUT_DIR/latest.tar"
-
-mv \
-    "$OUTPUT_DIR/latest.tar.zst" \
-    "$OUTPUT_DIR/latest.tar.zst"
+zstd -19 --rm "$OUTPUT_DIR/latest.tar"
 
 ########################################
 # SHA256
@@ -88,10 +79,12 @@ cat > "$OUTPUT_DIR/snapshot.json" <<EOF
   "version": "0.1.0",
   "archive": "latest.tar.zst",
   "sha256_file": "latest.sha256",
-  "download_url": "https://github.com/naftalimurgor/bitgesell-snapshots/releases/latest.tar.zst"
+  "download_url": "https://github.com/naftalimurgor/bitgesell-snapshots/releases/latest/download/latest.tar.zst"
 }
 EOF
 
+########################################
+# Summary
 ########################################
 
 echo
