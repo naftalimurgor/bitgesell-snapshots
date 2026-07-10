@@ -17,6 +17,17 @@ document.querySelectorAll(".copy-btn").forEach((button) => {
   });
 });
 
+if (window.AOS) {
+  document.body.classList.add("aos-ready");
+
+  AOS.init({
+    duration: 650,
+    easing: "ease-out-cubic",
+    offset: 80,
+    once: true,
+  });
+}
+
 async function loadSnapshot() {
   try {
     const url = document.querySelector('meta[name="snapshot-url"]').content;

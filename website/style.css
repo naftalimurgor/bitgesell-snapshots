@@ -89,6 +89,11 @@ code {
   font-size: .9em;
 }
 
+body:not(.aos-ready) [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .container {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
@@ -148,10 +153,14 @@ nav a:hover {
 }
 
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: 74px 0 56px;
 }
 
 .hero-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr);
   gap: 36px;
@@ -192,8 +201,8 @@ nav a:hover {
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 0 18px;
-  font-size: .96rem;
-  font-weight: 750;
+  font-size: .88rem;
+  font-weight: 700;
   transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
 }
 
@@ -312,12 +321,20 @@ dd {
 
 .section-band,
 .install-section {
+  position: relative;
+  overflow: hidden;
   padding: 72px 0;
   border-top: 1px solid var(--line);
 }
 
 .section-band {
   background: rgba(255, 255, 255, .62);
+}
+
+.section-band > .container,
+.install-section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .feature-grid {
