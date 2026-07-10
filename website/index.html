@@ -5,452 +5,222 @@
   <link rel="icon" href="favicons/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
-  <meta name="snapshot-url" content="https://downloads.bitgesell.dev/snapshot.json">
-
   <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png">
-
   <link rel="manifest" href="favicons/site.webmanifest">
+  <meta name="snapshot-url" content="https://downloads.bitgesell.dev/snapshot.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Bitgesell Snapshot</title>
-
   <meta name="description" content="Bootstrap a Bitgesell node in minutes using verified blockchain snapshots.">
-
+  <title>Bitgesell Snapshot</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="#" aria-label="Bitgesell Snapshot home">
+        <img src="assets/logo.png" alt="" width="36" height="36">
+        <span>Bitgesell Snapshot</span>
+      </a>
 
-  <!-- ==========================
-         HEADER
-    =========================== -->
-
-  <header>
-
-    <div class="container">
-
-      <nav>
-
-        <div class="logo">
-
-          <img src="assets/logo.png" alt="Bitgesell" width="34" height="34">
-        </div>
-
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#snapshot">Snapshot</a></li>
-          <li><a href="https://github.com/naftalimurgor/bitgesell-snapshots.git">GitHub</a></li>
-        </ul>
-
+      <nav aria-label="Primary navigation">
+        <a href="#snapshot">Snapshot</a>
+        <a href="#install">Install</a>
+        <a href="#details">Details</a>
+        <a href="https://github.com/naftalimurgor/bitgesell-snapshots" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
       </nav>
-
     </div>
-
   </header>
 
   <main>
-
-    <!-- ==========================
-             HERO
-        =========================== -->
-
     <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Verified Bitgesell node bootstrap</p>
+          <h1>Sync from a current blockchain snapshot in minutes.</h1>
+          <p class="hero-lede">
+            Download, verify, and install the latest Bitgesell snapshot to reduce
+            initial block download time for fresh nodes and repeat deployments.
+          </p>
 
-      <div class="container">
-
-        <h1>
-          Bootstrap A Bitgesell Node In Minutes
-        </h1>
-
-        <p>
-          Download a verified blockchain snapshot and dramatically reduce
-          the time required for initial Block Download (IDB) during sync.
-        </p>
-
-        <div class="buttons">
-
-          <div class="hero-buttons">
-            <a href="https://downloads.bitgesell.dev/latest.tar.zst" class="btn-primary" target="_blank"
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="https://downloads.bitgesell.dev/latest.tar.zst" target="_blank"
               rel="noopener noreferrer">
-              Download Snapshot
+              Download snapshot
             </a>
+            <a class="button secondary" href="#install">Install with script</a>
+          </div>
+        </div>
 
-            <a href="https://snapshot.bitgesell.dev/install.sh" class="btn-secondary" target="_blank"
-              rel="noopener noreferrer">
-              Install via Script
-            </a>
+        <aside class="snapshot-panel" id="snapshot" aria-labelledby="snapshot-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Latest snapshot</p>
+              <h2 id="snapshot-title">Release metadata</h2>
+            </div>
+            <span class="status-pill">Live</span>
           </div>
 
-          <a href="https://github.com/naftalimurgor/bitgesell-snapshots" class="btn-secondary">
-            GitHub
-          </a>
+          <dl class="snapshot-list">
+            <div>
+              <dt>Block height</dt>
+              <dd id="height">Loading...</dd>
+            </div>
+            <div>
+              <dt>Created</dt>
+              <dd id="created">Loading...</dd>
+            </div>
+            <div>
+              <dt>Archive size</dt>
+              <dd id="size">Loading...</dd>
+            </div>
+            <div>
+              <dt>Installer version</dt>
+              <dd id="version">Loading...</dd>
+            </div>
+          </dl>
 
-        </div>
-
-        <h2>Quick Start</h2>
-        <p>
-          Bootstrap a fresh Bitgesell node using the latest verified
-          blockchain snapshot.
-        </p>
-
-        <div class="code-block">
-
-          <button class="copy-btn" aria-label="Copy command">
-
-            <span class="icon-copy">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-
-                <path
-                  d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25z" />
-
-                <path
-                  d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z" />
-
-              </svg>
-
-            </span>
-
-            <span class="icon-check">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-
-                <path
-                  d="M13.78 4.22a.75.75 0 010 1.06L6.53 12.53a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 111.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
-
-              </svg>
-
-            </span>
-
-          </button>
-
-          <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
-
-        </div>
+          <div class="checksum">
+            <span>SHA-256</span>
+            <code id="sha256">Loading...</code>
+          </div>
+        </aside>
       </div>
-
     </section>
 
-    <!-- ==========================
-             FEATURES
-        =========================== -->
+    <section class="section-band">
+      <div class="container feature-grid" aria-label="Snapshot benefits">
+        <article>
+          <span class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M13 2 4 14h7l-1 8 10-13h-7l0-7Z" />
+            </svg>
+          </span>
+          <h2>Fast bootstrap</h2>
+          <p>Start from a recent chain state instead of replaying every block from genesis.</p>
+        </article>
 
-    <section class="surface" id="features">
+        <article>
+          <span class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3 5 6v6c0 4.2 2.8 7.8 7 9 4.2-1.2 7-4.8 7-9V6l-7-3Z" />
+              <path d="m9 12 2 2 4-5" />
+            </svg>
+          </span>
+          <h2>Checksum verified</h2>
+          <p>Snapshot metadata exposes the SHA-256 digest before extraction.</p>
+        </article>
 
-      <div class="container">
-
-        <h2>Why Bitgesell Snapshot?</h2>
-        <p>Make setting a new node easy peasy and avoid setup overhead in sync time.</p>
-
-        <div class="feature-grid">
-
-          <article>
-
-            <h3>⚡ Fast Bootstrap</h3>
-
-            <p>
-              Start from a recent blockchain snapshot instead of
-              downloading every block from genesis.
-            </p>
-
-          </article>
-
-          <article>
-
-            <h3>🔒 Integrity Verified</h3>
-
-            <p>
-              Every release includes SHA-256 checksums for
-              independent verification before extraction.
-            </p>
-
-          </article>
-
-          <article>
-
-            <h3>📦 One Command</h3>
-
-            <p>
-              Download, verify and install using a single
-              installation script.
-            </p>
-
-          </article>
-
-          <article>
-
-            <h3>🛠 Open Source</h3>
-
-            <p>
-              MIT licensed with all bash scripts publicly available on
-              GitHub.
-            </p>
-
-          </article>
-
-        </div>
-
+        <article>
+          <span class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 7h16M7 7v11h10V7M9 11h6M9 15h4" />
+              <path d="m8 7 1.5-3h5L16 7" />
+            </svg>
+          </span>
+          <h2>Repeatable install</h2>
+          <p>Use one command for fresh servers, local testing, and recovery workflows.</p>
+        </article>
       </div>
-
     </section>
 
-    <!-- ==========================
-             SNAPSHOT INFO
-        =========================== -->
-
-    <section class="surface" id="snapshot">
-
-      <div class="container">
-
-        <h2>Snapshot Information</h2>
-        <p>
-          The metadata below is generated automatically during every snapshot
-          build and reflects the latest available blockchain snapshot,
-          including its block height, archive size, creation date and
-          cryptographic checksum for independent verification.
-        </p>
-
-        <div class="status-card">
-
+    <section class="install-section" id="install">
+      <div class="container install-grid">
+        <div>
+          <p class="eyebrow">Quick start</p>
+          <h2>Install the latest snapshot</h2>
           <p>
-
-            <strong>Latest Block Height</strong><br>
-
-            <span id="height">Loading...</span>
-
+            The installer downloads the current archive, verifies the published
+            checksum, extracts it into the Bitgesell data directory, then lets
+            your node sync only the remaining blocks.
           </p>
-
-          <hr>
-
-          <p>
-
-            <strong>Snapshot Date</strong><br>
-
-            <span id="created">Loading...</span>
-
-          </p>
-
-          <hr>
-
-          <p>
-
-            <strong>Archive Size</strong><br>
-
-            <span id="size">Loading...</span>
-
-          </p>
-
-          <hr>
-
-          <p>
-
-            <strong>SHA-256</strong>
-
-          </p>
-
-          <code id="sha256">
-Loading...
-                    </code>
-
-          <hr>
-
-          <p>
-
-            <strong>Installer Version</strong><br>
-
-            <span id="version">
-              v0.1.0
-            </span>
-
-          </p>
-
         </div>
 
-      </div>
+        <div class="command-stack">
+          <article class="command-card">
+            <div class="command-card-header">
+              <h3>One-line installer</h3>
+              <span>Recommended</span>
+            </div>
+            <div class="code-block">
+              <button class="copy-btn" type="button" aria-label="Copy command">
+                <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 8h10v12H8z" />
+                  <path d="M6 16H4V4h12v2" />
+                </svg>
+                <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 13 4 4L19 7" />
+                </svg>
+              </button>
+              <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
+            </div>
+          </article>
 
+          <article class="command-card">
+            <div class="command-card-header">
+              <h3>Inspect and run locally</h3>
+            </div>
+            <div class="code-block">
+              <button class="copy-btn" type="button" aria-label="Copy command">
+                <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 8h10v12H8z" />
+                  <path d="M6 16H4V4h12v2" />
+                </svg>
+                <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m5 13 4 4L19 7" />
+                </svg>
+              </button>
+              <pre><code>git clone https://github.com/naftalimurgor/bitgesell-snapshots.git
+cd bitgesell-snapshots
+chmod +x install.sh
+./install.sh</code></pre>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- ==========================
-             INSTALLATION
-        =========================== -->
-
-    <section class="surface" id="download">
-
-      <div class="container">
-        <h2>How to Download Bitgesell Snapshot</h2>
-
-        <p>
-          Choose the installation method that best suits your workflow. The
-          one-line installer is recommended for most users, while cloning the
-          repository gives you full control over the installation scripts and
-          allows you to inspect or modify them before execution.
-        </p>
-
-        <h3>Option 1 — One-line installer (Recommended)</h3>
-        <div class="code-block">
-          <button class="copy-btn" aria-label="Copy command">
-
-            <span class="icon-copy">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-
-                <path
-                  d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25z" />
-
-                <path
-                  d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z" />
-
-              </svg>
-
-            </span>
-
-            <span class="icon-check">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-
-                <path
-                  d="M13.78 4.22a.75.75 0 010 1.06L6.53 12.53a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 111.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
-
-              </svg>
-
-            </span>
-
-          </button>
-          <pre><code>curl -fsSL https://snapshot.bitgesell.dev/install.sh | bash</code></pre>
+    <section class="section-band" id="details">
+      <div class="container details-grid">
+        <div>
+          <p class="eyebrow">Process</p>
+          <h2>How the bootstrap works</h2>
         </div>
 
-        <h3>Option 2 — Clone repository</h3>
-        <div class="code-block">
-
-          <button class="copy-btn" aria-label="Copy command">
-
-            <span class="icon-copy">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-
-                <path
-                  d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25z" />
-
-                <path
-                  d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25z" />
-
-              </svg>
-
-            </span>
-
-            <span class="icon-check">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-
-                <path
-                  d="M13.78 4.22a.75.75 0 010 1.06L6.53 12.53a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 111.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
-
-              </svg>
-
-            </span>
-
-          </button>
-          <pre><code>git clone https://github.com/naftalimurgor/bitgesell-snapshot
-
-cd bitgesell-snapshot
-
-chmod +x cmd/install.sh
-
-./cmd/install.sh</code></pre>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ==========================
-             HOW IT WORKS
-        =========================== -->
-
-    <section>
-
-      <div class="container-sm">
-
-        <h2>How It Works</h2>
-
-        <ol>
-
+        <ol class="steps">
           <li>
-            Download the latest compressed blockchain snapshot.
+            <span>01</span>
+            <p>Download the latest compressed blockchain snapshot.</p>
           </li>
-
           <li>
-            Verify its SHA-256 checksum.
+            <span>02</span>
+            <p>Verify the archive against the published SHA-256 checksum.</p>
           </li>
-
           <li>
-            Extract the archive into <code>~/.BGL</code>.
+            <span>03</span>
+            <p>Extract the verified chain data into <code>~/.BGL</code>.</p>
           </li>
-
           <li>
-            Launch <code>BGLd</code> and synchronize only the
-            remaining blocks.
+            <span>04</span>
+            <p>Launch <code>BGLd</code> and continue from the snapshot height.</p>
           </li>
-
         </ol>
-
       </div>
-
     </section>
-
-    <!-- ==========================
-             OPEN SOURCE
-        =========================== -->
-
-    <section class="surface" id="github">
-
-      <div class="container-sm">
-
-        <h2>Open Source</h2>
-
-        <p>
-
-          Bitgesell Snapshot is an open-source utility built to simplify
-          node deployment. The project is released under the MIT License
-          and welcomes issues, improvements and pull requests.
-
-        </p>
-
-        <p>
-
-          <a href="#">
-            View the project on GitHub →
-          </a>
-
-        </p>
-
-      </div>
-
-    </section>
-
   </main>
 
-  <!-- ==========================
-         FOOTER
-    =========================== -->
-
-  <footer>
-
-    <div class="container">
-
-      <p>
-
-        Bitgesell Snapshot • MIT License • Built for the Bitgesell Community
-
-      </p>
-
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p>Bitgesell Snapshot. MIT licensed tooling for the Bitgesell community.</p>
+      <a href="https://github.com/naftalimurgor/bitgesell-snapshots" target="_blank" rel="noopener noreferrer">
+        View source
+      </a>
     </div>
-
   </footer>
 
   <script src="app.js"></script>
-
 </body>
 
 </html>
