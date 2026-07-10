@@ -1,12 +1,3 @@
-REPO="naftalimurgor/bitgesell-snapshot"
-
-BASE_URL="https://github.com/${REPO}/releases/latest/download"
-
-SNAPSHOT_URL="${BASE_URL}/latest.tar.zst"
-CHECKSUM_URL="${BASE_URL}/latest.sha256"
-
-INSTALL_DIR="${HOME}/.BGL"
-
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
@@ -15,9 +6,7 @@ set -Eeuo pipefail
 # Configuration
 ########################################
 
-REPO="naftalimurgor/bitgesell-snapshot"
-
-BASE_URL="https://github.com/${REPO}/releases/latest/download"
+BASE_URL="https://downloads.bitgesell.dev"
 
 SNAPSHOT_URL="${BASE_URL}/latest.tar.zst"
 CHECKSUM_URL="${BASE_URL}/latest.sha256"
@@ -81,8 +70,7 @@ check_dependencies() {
 
 prepare_workspace() {
 
-    TMP_DIR=$(mktemp -d)
-
+    TMP_DIR="$(mktemp -d)"
     trap 'rm -rf "$TMP_DIR"' EXIT
 
     success "Workspace created."
@@ -95,6 +83,7 @@ download_snapshot() {
     log "Downloading snapshot..."
 
     curl -L \
+        --fail \
         --progress-bar \
         -o "${TMP_DIR}/latest.tar.zst" \
         "${SNAPSHOT_URL}"
@@ -104,6 +93,7 @@ download_snapshot() {
     log "Downloading checksum..."
 
     curl -L \
+        --fail \
         -o "${TMP_DIR}/latest.sha256" \
         "${CHECKSUM_URL}"
 
@@ -118,7 +108,6 @@ verify_snapshot() {
 
     (
         cd "$TMP_DIR"
-
         sha256sum -c latest.sha256
     )
 
@@ -139,10 +128,10 @@ backup_existing() {
 
         success "Backup created."
 
-        echo "Backup:"
+        echo
+        echo "Backup saved to:"
         echo "  $BACKUP"
         echo
-
     fi
 }
 
@@ -174,13 +163,17 @@ Location:
 
   ${INSTALL_DIR}
 
+Snapshot source:
+
+  ${BASE_URL}
+
 Next steps:
 
 1. Start your Bitgesell node
 
    bitgeselld
 
-2. Allow it to sync the remaining blocks.
+2. Allow it to synchronize the remaining blocks.
 
 Happy syncing!
 
@@ -203,17 +196,11 @@ cat <<EOF
 EOF
 
     check_dependencies
-
     prepare_workspace
-
     download_snapshot
-
     verify_snapshot
-
     backup_existing
-
     extract_snapshot
-
     finish
 }
 
